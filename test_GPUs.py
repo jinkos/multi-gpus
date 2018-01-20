@@ -122,7 +122,7 @@ if __name__ == "__main__":
       print('After {} samples'.format(n_samples_trained))
       for gpu,batch in zip(args.gpus,args.batches):
         print('\t GPU:{}[{}] {:5.0f}sps'.format(gpu,batch,sps*batch/sum(args.batches)))
-      print('\t Total: {:5.0f}sps'.format(sps))
+      print('\t Total:[{}] {:5.0f}sps'.format(batch_size,sps))
         
   print("Done!")
   
