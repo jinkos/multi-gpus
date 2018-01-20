@@ -12,7 +12,7 @@ This repo contains a modified version of `keras.utils.multi_gpu_model()` that ta
 
 1. [If you are already using *keras.utils.multi\_gpu\_model()*](#if-you-are-already-using-kerasutilsmulti_gpu_model)
 2. [Tutorial - How I Maxed out my 2 GPUs](#tutorial-how-i-maxed-out-my-2-gpus)
-3. [Converting single-GPU models to multi-GPU models]()
+3. [Converting single-GPU models to multi-GPU models](#converting-single-gpu-models-to-multi-gpu-models)
 
 
 ## If you are already using *keras.utils.multi\_gpu\_model()*
