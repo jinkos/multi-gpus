@@ -227,9 +227,7 @@ import ratio_training_utils
 import gpu_maxing_model
 
 single_model = gpu_maxing_model.get_model()
-model = ratio_training_utils.multi_gpu_model(single_model,
-												gpus=[0,1],
-												ratios=[3,2])
+model = ratio_training_utils.multi_gpu_model(single_model,gpus=[0,1],ratios=[3,2])
         
 model.compile(optimizer=optimizers.Adam(), 
             loss=losses.categorical_crossentropy)
