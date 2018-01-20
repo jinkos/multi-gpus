@@ -15,7 +15,7 @@ This repo contains a modified version of `keras.utils.multi_gpu_model()` that ca
 3. [Converting single GPU models to multi GPU models]()
 
 
-## If-you-are already using *keras.utils.multi\_gpu\_model()*
+## If you are already using *keras.utils.multi\_gpu\_model()*
 You are 90% there. Download [ratio\_training\_utils.py](https://github.com/jinkos/multi-gpus/blob/master/ratio_training_utils.py) and replace you calls to `keras.utils.multi_gpu_model()` with equivalent calls to `ratio_training_utils.multi_gpu_model()`
 
 Here are some quick usage examples...
@@ -40,7 +40,7 @@ might work for a 3 GPU system
 
 IMPORTANT: Always use the largest batch size that your GPU can handle or you won't be using its full potential. Keep increasing the batch size until you start to get memory warning. Similarly, if you are using 4 identical GPUs then you should increase you overall batch size to four times what it was on a single GPU. See the Turorial for a practical example.
 
-##Tutorial How I Maxed out my 2 GPUs
+## Tutorial How I Maxed out my 2 GPUs
 
 I am very proud of my two GPUs. One is a gtx1080 (8GB and fast) and the other a gtx1080 Ti (11GB and VERY fast).
 
