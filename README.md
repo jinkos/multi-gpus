@@ -40,7 +40,7 @@ might work for a 3 GPU system
 
 IMPORTANT: Always use the largest batch size that your GPU can handle or you won't be using its full potential. Keep increasing the batch size until you start to get memory warning. Similarly, if you are using 4 identical GPUs then you should increase you overall batch size to four times what it was on a single GPU. See the Turorial for a practical example.
 
-## Tutorial How I Maxed out my 2 GPUs
+## Tutorial: How I Maxed out my 2 GPUs
 
 I am very proud of my two GPUs. One is a gtx1080 (8GB and fast) and the other a gtx1080 Ti (11GB and VERY fast).
 
