@@ -15,7 +15,7 @@ This repo contains a modified version of `keras.utils.multi_gpu_model()` that ca
 3. [Converting single GPU models to multi GPU models]()
 
 
-##If-you-are already using *keras.utils.multi\_gpu\_model()* {#quick}
+## If-you-are already using *keras.utils.multi\_gpu\_model()*
 You are 90% there. Download [ratio\_training\_utils.py](https://github.com/jinkos/multi-gpus/blob/master/ratio_training_utils.py) and replace you calls to `keras.utils.multi_gpu_model()` with equivalent calls to `ratio_training_utils.multi_gpu_model()`
 
 Here are some quick usage examples...
