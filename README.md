@@ -239,7 +239,7 @@ etc...
 
 Easy Peasy. You `import ratio_training_utils`, take your regular single_model and pass it to `ratio_training_utils.multi_gpu_model` along with a list of your GPUs [0,1,...] and your ratios [3,2,...].
 
-If you use a batch size of 1000 and ratios=[3,2] then each batch will see 600 samples will placed on GPU:0 and 400 on GPU:1.
+If you use a batch size of 1000 and ratios=[3,2] then each batch will see 600 samples placed on GPU:0 and 400 on GPU:1.
 
 Happy maxing!
 
