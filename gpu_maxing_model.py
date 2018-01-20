@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import numpy as np
 
 from keras.layers import Conv2D,Input,MaxPooling2D,Flatten,Dense
