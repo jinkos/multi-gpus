@@ -1,8 +1,13 @@
+import tensorflow as tf
+
 from keras.layers.merge import concatenate
 from keras import backend as K
 from keras.layers.core import Lambda
 from keras.engine.training import Model
 
+# modified by James Everard 2018
+# originally keras.utils.training_utils.py
+# modified code marked with '#JE'
 
 def _get_available_devices():
     return [x.name for x in K.get_session().list_devices()]
@@ -12,7 +17,8 @@ def _normalize_device_name(name):
     name = '/' + ':'.join(name.lower().replace('/', '').split(':')[-2:])
     return name
 
-
+#JE note extra parameter ratios=[]
+#JE is rations omitted then function works as per original 
 def multi_gpu_model(model, gpus, ratios=[]):
     """Replicates a model on different GPUs.
 
@@ -110,8 +116,6 @@ def multi_gpu_model(model, gpus, ratios=[]):
         num_gpus = gpus
         target_gpu_ids = range(num_gpus)
 
-    import tensorflow as tf
-
     target_devices = ['/cpu:0'] + ['/gpu:%d' % i for i in target_gpu_ids]
     available_devices = _get_available_devices()
     available_devices = [_normalize_device_name(name) for name in available_devices]
@@ -125,10 +129,12 @@ def multi_gpu_model(model, gpus, ratios=[]):
                                           target_devices,
                                           available_devices))
 
+    #JE note extra ratios parameter
     def get_slice(data, i, parts, ratios):
         shape = tf.shape(data)
         batch_size = shape[:1]
         input_shape = shape[1:]
+        #JE run this bit of code if ratios is being used
         if num_gpus > 1 and len(ratios) == num_gpus:
           start = 0
           for r in ratios[:i]:
@@ -141,6 +147,7 @@ def multi_gpu_model(model, gpus, ratios=[]):
           stride = tf.concat([[1], input_shape * 0], axis=0)
           start = stride * start
         else:
+          #JE otherwise revert to original
           step = batch_size // parts
           if i == num_gpus - 1:
               size = batch_size - step * i
@@ -166,6 +173,7 @@ def multi_gpu_model(model, gpus, ratios=[]):
                 # Retrieve a slice of the input.
                 for x in model.inputs:
                     input_shape = tuple(x.get_shape().as_list())[1:]
+                    #JE modified so that 'ratios' is passed to get_slice
                     slice_i = Lambda(get_slice,
                                      output_shape=input_shape,
                                      arguments={'i': i,

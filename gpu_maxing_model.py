@@ -6,6 +6,11 @@ from keras.layers import Conv2D,Input,MaxPooling2D,Flatten,Dense
 from keras.datasets import mnist
 from keras import models
 
+# written by James Everard 2018
+
+# returns Keras-ready training data
+# the MNIST data is readily available in Keras and fits easily in RAM
+# we just want some training data for the GPUs to chew on
 def get_MNIST_train_data(do_print=False):
   # get the raw test data
   (x_train, y_train), (_, _) = mnist.load_data()
@@ -23,6 +28,10 @@ def get_MNIST_train_data(do_print=False):
 
   return (x_train, y_train_1hot)
 
+# returns an over-blown Keras model
+# this model is over-blown for NMIST
+# but it will keep your GPUs busy
+# don't try and get it to converge!
 def get_model(do_print=False):
   
   inp = Input(shape=(28,28,1))

@@ -11,12 +11,18 @@ from keras import backend as K
 import ratio_training_utils
 import gpu_maxing_model
 
+# written by James Everard 2018
+
 def print_devices():
+
   devices = K.get_session().list_devices()
+  print("Tensorflow recognises the following devices:")
   for d in devices:
     splits = d.name.split(':')
-    print("{}:{}".format(splits[-2],splits[-1]))
+    print("\t{}:{}".format(splits[-2],splits[-1]))
+  print()
 
+# returns arguments passed from the command line
 def arg_config(do_print=False):
 
   num_args = len(sys.argv)
@@ -26,13 +32,11 @@ def arg_config(do_print=False):
     print("num args:",num_args,sys.argv[0])
 
   # always...
-  parser = argparse.ArgumentParser(description="TF_Speech")
+  parser = argparse.ArgumentParser(description="Test multi-gpu capabilities")
 
   # optional arguments
   parser.add_argument('--batches', nargs='*')
-  parser.add_argument("--keras", help="use keras.utils.multi_gpu_model",action="store_true")
   parser.add_argument("--gpus", help="which GPUs to use", nargs='*')
-
 
   # always...
   args = parser.parse_args()
@@ -51,14 +55,15 @@ def arg_config(do_print=False):
   for i,val in enumerate(args.batches):
     args.batches[i] = int(val)
 
-  print(args.batches)  
-  print(args.keras)  
-  print(args.gpus)  
-
+  print("batches:",args.batches)  
+  print("gpus:",args.gpus)  
+  print()
+  
   return args
 
 if __name__ == "__main__":
   
+  # let's see what this machine has
   print_devices()
 
   # parse the command line arguments
@@ -75,6 +80,7 @@ if __name__ == "__main__":
     with tf.device('/gpu:'+str(args.gpus[0])):
       model = gpu_maxing_model.get_model()
   else:
+    # with multiple GPUs, split the load
     single_model = gpu_maxing_model.get_model()
     model = ratio_training_utils.multi_gpu_model(single_model, gpus=args.gpus, ratios=args.batches)
         
@@ -86,15 +92,17 @@ if __name__ == "__main__":
 
   # avoid using more than one epoch in a single training run
   n_training_steps = 60000 // batch_size - 1
-  n_training_runs = 10
+
+  # you can set this number lower or just ^C when you have had enough
+  n_training_runs = 3
   
   print('number of training runs = ',n_training_runs)
 
   # get the first traing batch out of the way cause it always so slow!
-  print("starting first batch")
+  print("starting first batch. Can take a while...")
   model.train_on_batch(x_train[0:batch_size],y_train_1hot[0:batch_size])
   print("Finished first batch.")
-  print("Each of the {} training runs should take about 10 seconds...".format(n_training_runs))
+  print("Each of the {} training runs should take about 10 seconds.".format(n_training_runs))
 
   # now start the timer running
   start_time = time.time()
