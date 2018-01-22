@@ -157,7 +157,6 @@ def multi_gpu_model(model, gpus, ratios=[]):
           stride = tf.concat([step, input_shape * 0], axis=0)
           start = stride * i
 
-        print("start-size",start,size)
         return tf.slice(data, start, size)
 
     all_outputs = []
