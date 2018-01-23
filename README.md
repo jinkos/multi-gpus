@@ -38,7 +38,7 @@ is what I use to balance my gtx1080 and my gtx1080-Ti. If I was using a batch si
 
 might work for a 3 GPU system
 
-####Use large batch sizes: 
+#### Use large batch sizes: 
 GPU efficiency deteriorates as you use smaller batch sizes because the overhead of sending all the weights backwards and forwards between CPU and GPUs.
 
 Consequently, if you are using 4 identical GPUs then you should increase you overall batch size to four times what it was on a single GPU. See the Turorial for a practical example.
